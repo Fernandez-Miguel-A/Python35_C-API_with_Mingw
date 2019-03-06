@@ -71,7 +71,11 @@ typedef struct PyModuleDef{
   PyModuleDef_Base m_base;
   const char* m_name;
   const char* m_doc;
+#if defined (__MINGW32__) || defined (__MINGW64__)
+  ssize_t m_size;
+#else
   Py_ssize_t m_size;
+#endif
   PyMethodDef *m_methods;
   struct PyModuleDef_Slot* m_slots;
   traverseproc m_traverse;

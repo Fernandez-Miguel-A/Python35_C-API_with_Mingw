@@ -183,7 +183,11 @@ typedef Py_intptr_t     Py_ssize_t;
 
 /* Py_hash_t is the same size as a pointer. */
 #define SIZEOF_PY_HASH_T SIZEOF_SIZE_T
+#if defined (__MINGW32__) || defined (__MINGW64__)
+typedef ssize_t Py_hash_t;
+#else
 typedef Py_ssize_t Py_hash_t;
+#endif
 /* Py_uhash_t is the unsigned equivalent needed to calculate numeric hash. */
 #define SIZEOF_PY_UHASH_T SIZEOF_SIZE_T
 typedef size_t Py_uhash_t;

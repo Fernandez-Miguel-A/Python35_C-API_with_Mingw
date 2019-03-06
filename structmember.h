@@ -18,7 +18,11 @@ extern "C" {
 typedef struct PyMemberDef {
     char *name;
     int type;
+#if defined (__MINGW32__) || defined (__MINGW64__)
+    ssize_t offset;
+#else
     Py_ssize_t offset;
+#endif
     int flags;
     char *doc;
 } PyMemberDef;

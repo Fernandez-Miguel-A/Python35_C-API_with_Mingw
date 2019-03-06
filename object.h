@@ -105,7 +105,11 @@ whose size is determined when the object is allocated.
  */
 typedef struct _object {
     _PyObject_HEAD_EXTRA
+#if defined (__MINGW32__) || defined (__MINGW64__)
+    ssize_t ob_refcnt;
+#else
     Py_ssize_t ob_refcnt;
+#endif
     struct _typeobject *ob_type;
 } PyObject;
 
@@ -343,7 +347,11 @@ typedef struct _typeobject PyTypeObject; /* opaque */
 typedef struct _typeobject {
     PyObject_VAR_HEAD
     const char *tp_name; /* For printing, in format "<module>.<name>" */
+#if defined (__MINGW32__) || defined (__MINGW64__)
+    ssize_t tp_basicsize, tp_itemsize; /* For allocation */
+#else
     Py_ssize_t tp_basicsize, tp_itemsize; /* For allocation */
+#endif
 
     /* Methods to implement standard operations */
 
